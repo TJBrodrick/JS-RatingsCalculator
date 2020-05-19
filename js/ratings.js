@@ -2,11 +2,18 @@ const collection_ratings = () => {
 const ratings{'count' = 0,'sum' = 0,'average' = 0};
  let rating = 0;
  const elements.document.querySelectAll('.rating');
-  elements.foreach(element-> {
-  rating = parseInt(elements.id.replace('star',''));
+  elements.foreach(element => {
+    rating = parseInt(elements.id.replace('star',''));
+    ratings.count += parseInt(element.value())
+    ratings.sum += parseInt(element.value() * rating)
   });
- )
-
-
- replace()
+  if(ratings.count !== 0 ){
+     ratings.average = (ratings.sum / ratings.count);
+  }
+return ratings;
 }
+
+document.addEventListener('change', () => {
+    const ratings = collection_ratings();
+    document.querySelect('#average').value = ratings.average.toFixed(2);
+    });
